@@ -22,8 +22,8 @@ def main(url, data, obj):
     try: 
         fetcher = Fetch(url = url, from_encoding = 'GBK')
         content = fetcher.get_content().renderContents()  #fetcher.
-        #  利用Beautiful.Beautiful得到content内容，
-        #  renderContents()方法的作用？
+        #  利用Beautiful.Beautiful得到content
+        #
         #
         for link in fetcher.get_all_link():
             params = data.split(',')

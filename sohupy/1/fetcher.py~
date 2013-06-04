@@ -50,7 +50,7 @@ class Fetch(object):
 
 
 if __name__ == '__main__':
-    fetch = Fetch('http://www.sohu.com/', from_encoding="GBK")
+    fetch = Fetch('http://www.sina.com.cn/', from_encoding="GBK")
     fetch.get_all_link()
     for link in fetch.get_all_link():
         print link
