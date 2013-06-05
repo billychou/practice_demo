@@ -8,8 +8,8 @@
 from optparse import OptionParser
 from fetcher import Fetch
 import sys
-reload(sys) 
-sys.setdefaultencoding("utf-8") 
+reload(sys)  #重新加载sys 
+sys.setdefaultencoding("utf-8")   #设置默认编码 
 
 def main(url, data, obj):
     '''
@@ -20,8 +20,9 @@ def main(url, data, obj):
     '''
     print '====BEGIN======'
     try: 
-        fetcher = Fetch(url = url, from_encoding = 'GBK')
-        content = fetcher.get_content().renderContents()  #fetcher.
+        fetcher = Fetch(url = url, from_encoding = 'GBK')  #定义Fetch实例
+
+        content = fetcher.get_content().renderContents()  #获取content内容
         #  利用Beautiful.Beautiful得到content内容，
         #  renderContents()方法的作用？
         #
