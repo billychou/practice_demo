@@ -11,7 +11,7 @@ Qerr = Queue.Queue()
 Pool = []  #线程池
 
 def report_error():
-	Qerr.put(sys.exc_info()[:2])
+	Qerr.put(sys.exc_info()[:2]) 
 
 def get_all_from_queue(Q):
 	try:
