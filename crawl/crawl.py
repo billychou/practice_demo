@@ -16,7 +16,7 @@ class Retriever(object):
         self.url = url
         self.file = self.filename(url)
     
-    def filename(self, url, deffie='index.html'):
+    def filename(self, url, deffile='index.html'):
         parsedurl = urlparse(url, 'http:', 0)
         path = parsedurl[1] + parsedurl[2]
         ext = splitext(path)
