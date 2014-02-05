@@ -19,8 +19,9 @@ class Retriever(object):
     def filename(self, url, deffie='index.html'):
         parsedurl = urlparse(url, 'http:', 0)
         path = parsedurl[1] + parsedurl[2]
+        print path
         ext = splitext(path)
-        if ext[1] == '':
+        if ext[1] == ' ':
             if path[-1] == '/':
                 path += deffile
             else:
@@ -28,8 +29,9 @@ class Retriever(object):
         ldir = dirname(path)
         if sep != '/':
             ldir = replace(ldir, '/', sep)
+            print sep
         if not isdir(ldir):
-            if exists(ldir):
+            if exists(ldir):  
                 unlink(ldir)
             makedirs(ldir)
         return path
@@ -48,7 +50,6 @@ class Retriever(object):
         self.parser.close()
         return self.parser.anchorlist
         
-
 class Crawler(object):
     count = 0
     def __init__(self, url):
@@ -101,7 +102,7 @@ def main():
         try:
             url = raw_input('Enter starting URL: ')
         except (KeyboardInterrupt, EOFError):
-            url = ''
+            url = ' '
         if not url:
             return 
         robot = Crawler(url)
