@@ -102,10 +102,10 @@ def main():
             url = raw_input('Enter starting URL: ')
         except (KeyboardInterrupt, EOFError):
             url = ''
-        if not url:
-            return 
-        robot = Crawler(url)
-        robot.go()
+    if not url:
+        return 
+    robot = Crawler(url)
+    robot.go()
 
 if __name__ == '__main__':
     main()
