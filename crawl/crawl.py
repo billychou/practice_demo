@@ -43,7 +43,8 @@ class Retriever(object):
         return retval
     
     def parseAndGetLinks(self):
-        self.parser = HTMLParser(AbstractFormatter(DumbWriter(StringIO())))
+        self.parser = HTMLParser(AbstractFormatter\
+        (DumbWriter(StringIO())))
         self.parser.feed(open(self.file).read())
         self.parser.close()
         return self.parser.anchorlist
@@ -70,7 +71,8 @@ class Crawler(object):
         
         links = r.parseAndGetLinks()
         for eachLink in links:
-            if eachLink[:4] != 'http' and find(eachLink, '://') == -1:
+            if eachLink[:4] != 'http' and \
+            find(eachLink, '://') == -1:
                 eachLink = urljoin(url, eachLink)
             print '* ',eachLink,
             
