@@ -16,7 +16,7 @@ class Retriever(object):
         self.url = url
         self.file = self.filename(url)
     
-    def filename(self, url, deffie='index.html'):
+    def filename(self, url, deffile='index.html'):
         parsedurl = urlparse(url, 'http:', 0)
         path = parsedurl[1] + parsedurl[2]
         print path
@@ -45,7 +45,8 @@ class Retriever(object):
         return retval
     
     def parseAndGetLinks(self):
-        self.parser = HTMLParser(AbstractFormatter(DumbWriter(StringIO())))
+        self.parser = HTMLParser(AbstractFormatter\
+        (DumbWriter(StringIO())))
         self.parser.feed(open(self.file).read())
         self.parser.close()
         return self.parser.anchorlist
@@ -71,7 +72,8 @@ class Crawler(object):
         
         links = r.parseAndGetLinks()
         for eachLink in links:
-            if eachLink[:4] != 'http' and find(eachLink, '://') == -1:
+            if eachLink[:4] != 'http' and \
+            find(eachLink, '://') == -1:
                 eachLink = urljoin(url, eachLink)
             print '* ',eachLink,
             
@@ -102,11 +104,19 @@ def main():
         try:
             url = raw_input('Enter starting URL: ')
         except (KeyboardInterrupt, EOFError):
+<<<<<<< HEAD
             url = ' '
         if not url:
             return 
         robot = Crawler(url)
         robot.go()
+=======
+            url = ''
+    if not url:
+        return 
+    robot = Crawler(url)
+    robot.go()
+>>>>>>> 10416536059911950acb2ac9b034fd4cf33c7fd9
 
 if __name__ == '__main__':
     main()
