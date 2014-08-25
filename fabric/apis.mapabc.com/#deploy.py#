@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+
+#*****************************#
+#***Author: songchuan.zhou   *#
+#***Date: 05/12/2014         *#
+#*****************************#
+from __future__ import with_statement
+from fabric.api import run
+from fabric.api import env
+from fabric.api import put
+from fabric.api import local
+
+eshellfrom datetime import datetime
+import logging
+import os
+import sys
+
+from fabric.api import local,settings,abort
+from fabric.contrib.console import confirm
+
+import argparse
+
+###Global Variables########
+###########################
+API_TOMCAT_PATH = "/opt/tomcat-hosts/apis_tomcat"
+GSS_TOMCAT_PATH = "/opt/tomcat-hosts/gss_tomcat"
+GTS_TOMCAT_PATH = "/opt/tomcat-hosts/gts_tomcat"
+NGINX_PATH = "/opt/webserver"
+############################
+
+###Get the Current Path######
+#############################
+ROOT_PATH = os.path.realpath("deploy.py")
+print ROOT_PATH
+
+env.user = 'root'
+env.password = 'mapabc&2013'
+
+#TOOL
+def get_hosts(file):
+    """
+        Return the hosts file through the file
+    """
+    ip_list = []
+    print ip_list
+    with open(file) as ip_file:
+        for i in ip_file.readlines():
+            #print i
+            ip_list.append(i.strip())
+    return ip_list
+
+env.hosts = get_hosts("ip.alist")
+print get_hosts("ip.alist")
+#env.hosts = ['10.16.21.41','10.16.21.50','10.16.21.60','10.16.21.70','10.16.21.80','10.16.21.90','10.16.21.100','10.16.21.110','10.16.21.140','10.16.21.130','10.16.21.120','10.16.21.150','10.16.21.165','10.16.21.170','10.16.21.175','10.16.21.155','10.16.21.180','10.16.21.185','10.16.21.160','10.16.21.190','10.16.21.195','10.16.21.45','10.16.21.55','10.16.21.65','10.16.21.75']
+#env.key_filename = '/root/.ssh/keyfile.pem'
+env.password='mapabc&2013'
+
+FORMAT = '%(asctime)-15s %(clientip)s %(user)-82 %(message)s'
+logging.basicConfig(format=FORMAT)
+
+#Demo  Program 
+def demo():
+    print "Test Starts"
+    run("ls -sh ")
+
+def add_key():
+    put("21_rsa.pub", "21_rsa.pub") 
+    run("cat 21_rsa.pub >> /root/.ssh/authorized_keys")
+    put("213.pub", "213.pub")
+    run("cat 213.pub >> /root/.ssh/authorized_keys")
+
+def add_resolv():
+    run("> /etc/resolv.conf")
+    run("echo 'nameserver 10.16.16.1'>> /etc/resolv.conf")
+    run("echo 'nameserver 10.16.16.2'>> /etc/resolv.conf")
+
+def get_hosts():
+    run("cat /etc/hosts")
+
+def upload_script():
+    run("mkdir -p /home/myshell")
+    put("setip.sh","/home/myshell/setip.sh") 
