@@ -57,12 +57,9 @@ def get_hosts(file):
             ip_list.append(i.strip())
     return ip_list
 
-#env.hosts = get_hosts("ip.alist")
 hosts_ip =  utils.get_hosts("ip.alist")
 print "the real addresss is ",hosts_ip
 env.hosts = hosts_ip
-#env.hosts = ['10.16.21.41','10.16.21.50','10.16.21.60','10.16.21.70','10.16.21.80','10.16.21.90','10.16.21.100','10.16.21.110','10.16.21.140','10.16.21.130','10.16.21.120','10.16.21.150','10.16.21.165','10.16.21.170','10.16.21.175','10.16.21.155','10.16.21.180','10.16.21.185','10.16.21.160','10.16.21.190','10.16.21.195','10.16.21.45','10.16.21.55','10.16.21.65','10.16.21.75']
-#env.key_filename = '/root/.ssh/keyfile.pem'
 env.password='mapabc&2013'
 
 FORMAT = '%(asctime)-15s %(clientip)s %(user)-82 %(message)s'
