@@ -1,5 +1,8 @@
 #!/usr/bin/env python
-
+"""
+Date:20160501
+Author:songchuan.zhou@alibaba-inc.com
+"""
 from sys import argv
 from os import makedirs, unlink, sep
 from os.path import dirname, exists, isdir, splitext
@@ -27,6 +30,7 @@ class Retriever(object):
             else:
                 path += '/' + deffile
         ldir = dirname(path)
+	print ldir
         if sep != '/':
             ldir = replace(ldir, '/', sep)
             print sep
@@ -104,19 +108,15 @@ def main():
         try:
             url = raw_input('Enter starting URL: ')
         except (KeyboardInterrupt, EOFError):
-<<<<<<< HEAD
             url = ' '
         if not url:
             return 
         robot = Crawler(url)
         robot.go()
-=======
-            url = ''
     if not url:
         return 
     robot = Crawler(url)
     robot.go()
->>>>>>> 10416536059911950acb2ac9b034fd4cf33c7fd9
 
 if __name__ == '__main__':
     main()
