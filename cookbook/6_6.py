@@ -18,12 +18,13 @@ class Proxy(object):
         return f
 
 
+known_proxy_classes = {}
 def proxy(obj, *specials):
-    obj_cls = obj.__class
-    key = obj_clas, specials
+    obj_cls = obj.__class__
+    key = obj_cls, specials
     cls = known_proxy_classes.get(key)
     if cls is None:
-        cls = type("%sProxy"%obj_cls.__name__, (Proxy,), { })
+        cls = type("%sProxy" % obj_cls.__name__, (Proxy,), { })
         for name in specials:
             name = '__%s__' % name
             unbound_method = getattr(obj_cls, name)
