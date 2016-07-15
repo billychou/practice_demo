@@ -32,6 +32,35 @@ class Person(object):
 
 
 
+
+class Movie(object):
+    def __init__(self, title, rating, runtime, budget, gross):
+        self.title = title
+        self.rating = rating
+        self.runtime = runtime
+        self.budget = budget
+        self.gross = gross
+
+        #if budget < 0:
+        #    raise ValueError("Negative value not allowed %s" % budget)
+        #self.budget = budget
+        #  只有在__init__方法中捕获错误的数据,但对于已经存在的类实例就无能为力了。
+
+
+    @property
+    def budget(self):
+        return self._budget
+
+    @budget.setter
+    def budget(self, value):
+        if value < 0:
+            raise ValueError("Negative value not allowed: %s" % value)
+        self._budget = value
+
+    def profit(self):
+        return self.gross - self.budget
+
+
 if __name__ == "__main__":
     s = Student()
     s.score = 100

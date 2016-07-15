@@ -7,7 +7,7 @@ class Base(object):
         pass
 
 class BaseSlot(object):
-    """类实例只能拥有x变量,不生成dict"""
+    """类实例只能拥有x变量,并且不生成内置__dict__属性"""
     __slots__ = "x"
     v = 1
     def __init__(self):
