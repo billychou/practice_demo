@@ -5,9 +5,14 @@ from weakref import WeakKeyDictionary
 
 class NonNegative(object):
     """非负数描述符"""
+    #
+    #
+    #
     def __init__(self, default):
         self.default = default
         self.data = WeakKeyDictionary()
+        #weakref 弱引用,WeakKeyDictionary创建一个key为弱引用对象的词典
+
 
     def __get__(self, instance, owner):
         return self.data.get(instance, self.default)
