@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/liukui.lk/amap-api/traffitor/lib/limiter'
+let g:netrw_dirhist_2='/home/liukui.lk/amap-api/traffitor'
+let g:netrw_dirhist_3='/home/liukui.lk/amap-api/traffitor/routes'
+let g:netrw_dirhist_4='/home/liukui.lk/amap-api/yuri/src/lib/log'
+let g:netrw_dirhist_5='/home/liukui.lk/node_modules/http-proxy/lib/http-proxy'
