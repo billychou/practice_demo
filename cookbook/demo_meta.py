@@ -6,7 +6,9 @@ class ObjectCreator(object):
 
 
 class Foo(object):
+    __metaclass__ = 
     bar = 'bip'
+
 
 
 class Bar(object):
@@ -42,6 +44,9 @@ __metaclass__ = upper_attr
 
 def echo(o):
     print(o)
+
+
+
 
 if __name__ == "__main__":
     my_object = ObjectCreator()
