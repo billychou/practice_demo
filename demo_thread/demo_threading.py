@@ -6,27 +6,36 @@ import random
 
 count = 0
 lock = threading.Lock()
+SHARE_Q = Queue.Queue()
 
-class Blarg(threading.Thread):
-    def run(self):
-        print time.time()
-
-def worker(ip):
-    print "test for use",ip
+def worker():
+    print "test for use"
     print time.time()
 
-def toAdd():
-    global count, lock
-    lock.acquire()
-    for i in xrange(10000):
-        count = count + 1
-    lock.release()
+for i in xrange(5):
+    threading.Thread(target=worker, args=(), name='thread'+str(i)).start()
+    time.sleep(1)
 
-for i in range(5):
-    threading.Thread(target=toAdd, args=(), name='thread'+str(i)).start()
 
-print count
-#for i in xrange(1,10):
-#    t = threading.Thread(target=worker, args=(i,))
-#    t.start()
+class Timer(threading.Thread, object):
+    def __init__(self, num, interval):
+        threading.Thread.__init__(self)
+        self.thread_num = num
+        self.interval = interval
+        self.thread_stop = False
 
+    def run(self):
+        while not self.thread_stop:
+            print "Thread Object(%d), Timer:%s\n"%(self.thread_num, time.time())
+            time.sleep(self.interval)
+    def stop(self):
+        self.thread_stop = True
+
+if __name__ == "__main__":
+    thread1 = Timer(1, 1)
+    thread2 = Timer(2, 2)
+    thread1.start()
+    thread2.start()
+    time.sleep(10)
+    thread1.stop()
+    thread2.stop()
