@@ -14,15 +14,14 @@ def lookup_person(db):
     pid = raw_input('Enter ID number:')
     field = raw_input('What would you like to know?(name, age, phone)')
     field = field.strip().lower()
-    print field.capitalize() + ':', \
-        db[pid][field]
+    print(field.capitalize() + ':', db[pid][field])
 
 def print_help():
-    print 'The available  commands are:'
-    print 'store : Stores information about a person'
-    print 'lookup :  Looks up a person from ID number'
-    print 'quit : Save changes and exit'
-    print '? : Prints this message'
+    print('The available  commands are:')
+    print('store : Stores information about a person')
+    print('lookup :  Looks up a person from ID number')
+    print('quit : Save changes and exit')
+    print('? : Prints this message')
 
 def enter_command():
     cmd = raw_input('Enter command (? for help): ')
