@@ -1,41 +1,88 @@
 #!/usr/bin/env python
+# -*-coding:utf-8-*-
+
+
+#
+#    Author: songchuan.zhou
+#    Usage:
+#    1. 线程:   threading
+#    2. 同步原语:
+#        锁
+#        信号量
+#    3. 队列
+#
+
 import threading
 import Queue
 import time
 import random
+from atexit import register
+from random import randrange
+from threading import Thread, currentThread
+from time import sleep, ctime
 
-count = 0
-lock = threading.Lock()
-SHARE_Q = Queue.Queue()
+local_school = threading.local()
 
-def worker():
-    print "test for use"
-    print time.time()
+from threading import Lock
+lock = Lock()
 
-for i in xrange(5):
-    threading.Thread(target=worker, args=(), name='thread'+str(i)).start()
-    time.sleep(1)
+class CleanOutputSet(set):
+    """
+        Usage: CleanOutputSet
+    """
+    def __str__(self):
+        return ', '.join(x for x in self)
+
+loops = (randrange(2, 5) for x in range(randrange(3, 7)))
+remaining = CleanOutputSet()
 
 
-class Timer(threading.Thread, object):
-    def __init__(self, num, interval):
-        threading.Thread.__init__(self)
-        self.thread_num = num
-        self.interval = interval
-        self.thread_stop = False
+def loop(nsec):
+    print("Thread {} is running...".format(threading.currentThread().name))
+    myname = currentThread().name
+    lock.acquire()
+    remaining.add(myname)
+    print("[%s] Started %s"% (ctime(), myname))
+    lock.release()
+    sleep(nsec)
+    lock.acquire()
+    remaining.remove(myname)
+    print("[%s] Completed %s (%d secs)"%(ctime(), myname, nsec))
+    print("(remaining: %s)"%(remaining or 'None'))
+    lock.release()
 
-    def run(self):
-        while not self.thread_stop:
-            print "Thread Object(%d), Timer:%s\n"%(self.thread_num, time.time())
-            time.sleep(self.interval)
-    def stop(self):
-        self.thread_stop = True
+
+class Student(object):
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return self.name
+
+
+def process_student(name):
+    std = Student()
+    do_task_1(std)
+    do_task_2(std)
+
+
+def process_student():
+    print("Hello, %s(in %s)"%(local_school.student, threading.currentThread().name))
+
+def process_thread(name):
+    local_school.student = name
+    process_student()
+
+
+def main():
+    for pause in loops:
+        Thread(target=loop, args=(pause,), name="LoopThread{}".format(pause)).start()
+
+
+@register
+def _atexit():
+    print("all Done at:", ctime())
 
 if __name__ == "__main__":
-    thread1 = Timer(1, 1)
-    thread2 = Timer(2, 2)
-    thread1.start()
-    thread2.start()
-    time.sleep(10)
-    thread1.stop()
-    thread2.stop()
+    main()
