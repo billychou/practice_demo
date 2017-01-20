@@ -8,6 +8,7 @@ function Add(left: number, right: number): number {
     return left + right;
 }
 
+
 //接口类型批注
 interface Shape {
     name: string;
@@ -50,3 +51,5 @@ class Shape2 {
 
 console.log( area({name: "rectangle", width: 30, height: 15}))
 console.log( area( {name: "square", width: 40, height: 50}))
+
+
