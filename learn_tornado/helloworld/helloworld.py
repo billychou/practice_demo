@@ -5,7 +5,6 @@ import tornado.httpserver
 import tornado.options
 
 
-
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Hello, world!")
