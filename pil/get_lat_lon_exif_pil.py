@@ -23,9 +23,8 @@ def get_exif_data(image):
 def _get_if_exist(data, key):
     if key in data:
         return data[key]
-		
     return None
-	
+
 def _convert_to_degress(value):
     """Helper function to convert the GPS coordinates stored in the EXIF to degress in float format"""
     d0 = value[0][0]
@@ -47,7 +46,7 @@ def get_lat_lon(exif_data):
     lat = None
     lon = None
 
-    if "GPSInfo" in exif_data:		
+    if "GPSInfo" in exif_data:
         gps_info = exif_data["GPSInfo"]
 
         gps_latitude = _get_if_exist(gps_info, "GPSLatitude")
@@ -57,7 +56,7 @@ def get_lat_lon(exif_data):
 
         if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
             lat = _convert_to_degress(gps_latitude)
-            if gps_latitude_ref != "N":                     
+            if gps_latitude_ref != "N":
                 lat = 0 - lat
 
             lon = _convert_to_degress(gps_longitude)
