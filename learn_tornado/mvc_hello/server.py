@@ -1,9 +1,10 @@
-#coding:utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import tornado.ioloop
 import sys
 
-from application import application
+from tornado.web.Application import application
 
 PORT = '8080'
 
