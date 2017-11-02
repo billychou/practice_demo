@@ -1,6 +1,11 @@
 #coding=utf-8
 import sys, shelve
 
+dbfilename = 'people-file'
+ENDDB = 'enddb.'
+ENDREC = 'endrec.'
+RECSEP = '=>'
+
 def store_person(db):
     pid = raw_input('Enter unique ID number:')
     person = {}
@@ -28,6 +33,43 @@ def enter_command():
     cmd = cmd.strip().lower()
     return cmd
 
+
+def storeDbase(db, dbfilename=dbfilename):
+    dbfile = open(dbfilename, 'w')
+    for (key, value) in db.items():
+        #print(key, file=dbfilename)
+        dbfile.write(key)
+        dbfile.write("\n")
+        for (name, value_attr) in value.items():
+            #print(name + RECSEP + repr(value), file=dbfile)
+            dbfile.write(name+RECSEP + repr(value_attr))
+            dbfile.write("\n")
+        #print(ENDREC, file=dbfile)
+        dbfile.write(ENDREC)
+        dbfile.write("\n")
+    #print(ENDDB, file=dbfile)
+    dbfile.write(ENDDB)
+    dbfile.close()
+
+
+def loadDbase(dbfilename=dbfilename):
+    dbfile = open(dbfilename)
+    import sys
+    sys.stdin = dbfile
+    db = {}
+    while key != ENDDB:
+        rec = {}
+        field = input()
+        while field != field.split(RECSEP):
+            name, value = field.split(RECSEP)
+            rec[name] = eval(value)
+            field = input()
+        db[key] = rec
+        key = input()
+    return db
+
+
+
 def main():
     database = shelve.open('database.dat')
     try:
@@ -44,5 +86,10 @@ def main():
     finally:
         database.close()
 
-if __name__ == '__main__':main()
+def execute():
+    from initdata import db
+    storeDbase(db)
+
+if __name__ == '__main__':
+    execute()
 
