@@ -5,14 +5,11 @@ from weakref import WeakKeyDictionary
 
 class NonNegative(object):
     """非负数描述符"""
-    #
-    #
-    #
+
     def __init__(self, default):
         self.default = default
         self.data = WeakKeyDictionary()
         #weakref 弱引用,WeakKeyDictionary创建一个key为弱引用对象的词典
-
 
     def __get__(self, instance, owner):
         return self.data.get(instance, self.default)
@@ -31,7 +28,7 @@ class Descriptor(object):
         self._name = ''
 
     def __get__(self, instance, owner):
-        print "Getting: %s" % self._name
+        print("Getting: %s" % self._name)
         return self._name
 
     def __set__(self, instance, name):
@@ -42,15 +39,35 @@ class Descriptor(object):
              title首字母大写
         """
         if not name.startswith("b"):
-            print "exception"
+            print("exception")
             raise ValueError("the name is not started with b")
         else:
-            print "非异常"
+            print("非异常")
             self._name = name.title()
 
     def __delete__(self, instance):
-        print "Deleting: %s" % self._name
+        print("Deleting: %s" % self._name)
         del self._name
+
+
+class RevealAccess(object):
+
+    def __init__(self, initial=None, name='var'):
+        self.value = initial
+        self.name = name
+
+    def __get__(self, obj, objtype):
+        print("Retrieving", self.name)
+        return self.value
+
+    def __set__(self, obj, value):
+        print("Updating", self.name)
+        self.value = value
+
+
+class MyClass(object):
+    x = RevealAccess(10, 'var "x"')
+    y = 5
 
 
 class Movie(object):
@@ -58,4 +75,8 @@ class Movie(object):
 
 
 if __name__ == "__main__":
-    pass
+    myclass = MyClass()
+    print(myclass.x)
+    myclass.x = 100
+    print(myclass.x)
+    print(RevealAccess.__dict__)
